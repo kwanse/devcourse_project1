@@ -1,4 +1,4 @@
-package com.grepp.global;
+package com.grepp.global.auth;
 
 import org.springframework.http.ResponseCookie;
 

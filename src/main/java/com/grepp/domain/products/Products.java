@@ -1,15 +1,16 @@
 package com.grepp.domain.products;
 
-import com.grepp.domain.orders.OrderItems;
+import com.grepp.domain.cart.OrderItems;
 import com.grepp.domain.products.controller.dto.ProductsRequest;
 import com.grepp.global.BaseEntity;
-import com.grepp.global.UUIDConverter;
+import com.grepp.global.config.UUIDConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class Products extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItems> orderItems;
+    private List<OrderItems> orderItems = new ArrayList<>();
 
     public void updateByRequest(ProductsRequest request) {
         this.productName = request.getProductName();

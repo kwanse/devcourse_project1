@@ -1,7 +1,9 @@
 package com.grepp.domain.admin;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 public class Admin {
 

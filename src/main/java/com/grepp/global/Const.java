@@ -10,6 +10,11 @@ public final class Const {
     public static final String NOT_FOUND_IN_THE_CART = "장바구니에 해당 물건이 없습니다!";
     public static final String NO_ITEM_IN_THE_CART = "장바구니가 비었습니다!";
 
+    public static final String INVALID_ADMIN = "존재하지 않는 admin 아이디입니다";
+    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String USER = "ROLE_USER";
+
+    public static final String ISSUER = "kwan";
     public static final int EXPIRE_TIME = 60 * 60 * 3;
 
     private Const() {}

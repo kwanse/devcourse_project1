@@ -1,6 +1,7 @@
-package com.grepp.domain.orders;
+package com.grepp.domain.cart;
 
-import com.grepp.domain.orders.controller.dto.CartRequest;
+import com.grepp.domain.cart.controller.CartRequest;
+import com.grepp.domain.orders.Orders;
 import com.grepp.domain.products.Products;
 import com.grepp.global.BaseEntity;
 import jakarta.persistence.*;
@@ -38,12 +39,10 @@ public class OrderItems extends BaseEntity {
     private Integer quantity;
 
     public OrderItems(CartRequest request) {
-        this.seq = request.getSeq();
-
-        // this.orders = request.getOrders();
-        this.products = request.getProducts();
-        this.category = request.getCategory();
-        this.price = request.getPrice();
-        this.quantity = request.getQuantity();
+        this.seq = request.seq();
+        this.products = request.products();
+        this.category = request.category();
+        this.price = request.price();
+        this.quantity = request.quantity();
     }
 }

@@ -1,6 +1,5 @@
-package com.grepp.domain.orders.service;
+package com.grepp.domain.cart;
 
-import com.grepp.domain.orders.OrderItems;
 import com.grepp.global.MemoryService;
 import com.grepp.global.exception.NoDataException;
 import org.springframework.stereotype.Service;
@@ -14,14 +13,13 @@ import java.util.stream.IntStream;
 import static com.grepp.global.Const.*;
 
 @Service
-public class MemoryOrderService implements MemoryService<OrderItems> {
+public class MemoryCartService implements MemoryService<OrderItems> {
 
     private final Map<String, List<OrderItems>> memory = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(10);
 
     @Override
     public List<OrderItems> get(String key) {
-
         if (!memory.containsKey(key) || key == null) {
             return new ArrayList<>();
         }
@@ -29,7 +27,7 @@ public class MemoryOrderService implements MemoryService<OrderItems> {
     }
 
     @Override
-    public OrderItems put(String key, OrderItems value) {
+    public OrderItems add(String key, OrderItems value) {
 
         if (memory.containsKey(key)) {
             memory.get(key).add(value);
@@ -37,10 +35,8 @@ public class MemoryOrderService implements MemoryService<OrderItems> {
         }
         memory.put(key, new ArrayList<>());
         memory.get(key).add(value);
-
         scheduler.schedule(() -> memory.remove(key), EXPIRE_TIME, TimeUnit.SECONDS);
         // 사용자가 요청을 보내면 그 시간을 기점으로 다시 추가하는것은 안될까?
-
         return value;
     }
 
@@ -57,7 +53,6 @@ public class MemoryOrderService implements MemoryService<OrderItems> {
 
     @Override
     public void remove(String key, Long valueSeq) {
-
         List<OrderItems> cart = memory.get(key);
         int index = getIndexFromCart(valueSeq, cart);
 

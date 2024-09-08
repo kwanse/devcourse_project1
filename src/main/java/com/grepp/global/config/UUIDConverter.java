@@ -1,4 +1,4 @@
-package com.grepp.global;
+package com.grepp.global.config;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

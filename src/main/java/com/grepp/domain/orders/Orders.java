@@ -1,13 +1,15 @@
 package com.grepp.domain.orders;
 
+import com.grepp.domain.cart.OrderItems;
 import com.grepp.global.BaseEntity;
-import com.grepp.global.UUIDConverter;
+import com.grepp.global.config.UUIDConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +30,9 @@ public class Orders extends BaseEntity {
     private String email;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String address;
 
     @Column(nullable = false)
@@ -37,6 +42,10 @@ public class Orders extends BaseEntity {
     private String orderStatus;
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItems> orderItems;
+    private List<OrderItems> orderItems = new ArrayList<>();
+
+    public Orders(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+    }
 
 }
