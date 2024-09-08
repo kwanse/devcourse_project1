@@ -1,14 +1,16 @@
 package com.grepp.domain.products;
 
+import com.grepp.domain.orders.OrderItems;
 import com.grepp.domain.products.controller.dto.ProductsRequest;
 import com.grepp.global.BaseEntity;
+import com.grepp.global.UUIDConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,7 +22,8 @@ public class Products extends BaseEntity {
 
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    private byte[] productId;
+    @Convert(converter = UUIDConverter.class)
+    private UUID productId;
 
     @Column(nullable = false)
     private String productName;
@@ -32,6 +35,9 @@ public class Products extends BaseEntity {
     private Long price;
 
     private String description;
+
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItems> orderItems;
 
     public void updateByRequest(ProductsRequest request) {
         this.productName = request.getProductName();

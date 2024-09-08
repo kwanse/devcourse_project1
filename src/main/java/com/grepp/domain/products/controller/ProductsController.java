@@ -19,7 +19,7 @@ public class ProductsController {
     private final ProductsUseCase productsService;
 
     @GetMapping // 목록 조회
-    public ResponseEntity<List<ProductsResponse>> getProducts() {
+    public ResponseEntity<List<ProductsResponse>> getAllProducts() {
 
         List<ProductsResponse> responses = productsService.getProducts().stream()
                 .map(ProductsResponse::new)

@@ -1,4 +1,4 @@
-package com.grepp.global;
+package com.grepp.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

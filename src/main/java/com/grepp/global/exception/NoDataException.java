@@ -1,4 +1,4 @@
-package com.grepp.global;
+package com.grepp.global.exception;
 
 public class NoDataException extends RuntimeException {
     public NoDataException(String message) {

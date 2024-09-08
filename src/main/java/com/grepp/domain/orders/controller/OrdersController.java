@@ -1,13 +1,14 @@
 package com.grepp.domain.orders.controller;
 
+import com.grepp.domain.orders.controller.dto.OrdersRequest;
+import com.grepp.domain.orders.controller.dto.OrdersResponse;
 import com.grepp.domain.orders.service.OrdersUseCase;
+import com.grepp.global.CacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/orders")
@@ -15,7 +16,28 @@ import java.util.List;
 public class OrdersController {
 
     private final OrdersUseCase ordersService;
+    private final CacheService cacheOrderService;
 
-    @GetMapping
-    public ResponseEntity<List<>>
+
+    @GetMapping("/{ordersId}") // 주문 상세 정보
+    public ResponseEntity<OrdersResponse> getOrderDetail(@AuthenticationPrincipal String email
+            , @PathVariable Long ordersId) {
+
+
+        // findByEmail()
+    }
+
+
+    @PostMapping("/add")
+    public ResponseEntity<OrdersResponse> addOrders(OrdersRequest request) {
+
+        // request 로 OrderItems 생성
+    }
+
+    @PutMapping("/{ordersId}")
+    public ResponseEntity<OrdersResponse> updateOrders() {
+
+    }
+
+    @PostMapping("/{ordersId}")
 }
