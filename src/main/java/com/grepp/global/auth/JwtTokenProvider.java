@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import static com.grepp.global.Const.ISSUER;
 
-//@Component
+@Component
 public class JwtTokenProvider {
 
     private static final String KEY = UUID.randomUUID().toString();

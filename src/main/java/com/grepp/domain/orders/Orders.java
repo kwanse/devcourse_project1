@@ -25,8 +25,9 @@ import static com.grepp.global.Const.PAYMENT_COMPLETED;
 public class Orders extends BaseEntity {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
-    @Convert(converter = UUIDConverter.class)
+    @GeneratedValue(strategy = GenerationType.UUID)
+//    @Column(columnDefinition = "BINARY(16)")
+//    @Convert(converter = UUIDConverter.class)
     private UUID orderId;
 
     @Column(nullable = false)
