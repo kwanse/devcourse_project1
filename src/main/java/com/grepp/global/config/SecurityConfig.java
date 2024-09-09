@@ -9,20 +9,23 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain chain(HttpSecurity http) throws Exception {
-        return http.httpBasic(AbstractHttpConfigurer::disable)
-                .sessionManagement(AbstractHttpConfigurer::disable)
+        return http
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.POST, "/products").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/orders").authenticated())
+//                        .requestMatchers(HttpMethod.POST, "/products").authenticated()
+//                        .requestMatchers(HttpMethod.POST, "/orders").authenticated()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**").permitAll()
+                                .anyRequest().permitAll()
+                )
                 .build();
     }
 

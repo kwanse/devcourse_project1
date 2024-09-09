@@ -1,4 +1,4 @@
-package com.grepp.domain.orders.controller;
+package com.grepp.domain.orders.controller.dto;
 
 import com.grepp.domain.cart.OrderItems;
 import com.grepp.domain.orders.Orders;

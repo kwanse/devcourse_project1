@@ -6,6 +6,7 @@ import com.grepp.domain.products.controller.dto.ProductsRequest;
 import com.grepp.global.exception.NoDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
 import static com.grepp.global.Const.NOT_FOUND_PRODUCTS;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class ProductsService implements ProductsUseCase {
 

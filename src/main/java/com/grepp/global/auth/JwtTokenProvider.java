@@ -15,12 +15,12 @@ import java.util.UUID;
 
 import static com.grepp.global.Const.ISSUER;
 
-@Component
+//@Component
 public class JwtTokenProvider {
 
-    private final String KEY = UUID.randomUUID().toString();
+    private static final String KEY = UUID.randomUUID().toString();
 
-    public String createAccessToken(Admin admin, long expireTime) {
+    public static String createAccessToken(Admin admin, long expireTime) {
         return Jwts.builder()
                 .signWith(getTokenKey())
                 .subject(admin.getLoginId())
@@ -43,7 +43,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private SecretKey getTokenKey() {
+    private static SecretKey getTokenKey() {
         byte[] keyBytes = Decoders.BASE64.decode(KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

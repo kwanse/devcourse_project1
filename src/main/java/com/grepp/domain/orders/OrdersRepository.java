@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface OrdersRepository extends JpaRepository<Orders, UUID> {
 
     List<Orders> findByEmail(String email);
+    List<Orders> findByEmailAndPassword(String email, String password);
 }

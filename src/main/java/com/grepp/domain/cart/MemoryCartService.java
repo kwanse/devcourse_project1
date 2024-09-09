@@ -3,6 +3,7 @@ package com.grepp.domain.cart;
 import com.grepp.global.MemoryService;
 import com.grepp.global.exception.NoDataException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.IntStream;
 
 import static com.grepp.global.Const.*;
 
+@Transactional
 @Service
 public class MemoryCartService implements MemoryService<OrderItems> {
 
@@ -29,20 +31,21 @@ public class MemoryCartService implements MemoryService<OrderItems> {
     @Override
     public OrderItems add(String key, OrderItems value) {
 
-        if (memory.containsKey(key)) {
+        if (!memory.containsKey(key) || key == null) {
+            memory.put(key, new ArrayList<>());
             memory.get(key).add(value);
+            scheduler.schedule(() -> memory.remove(key), EXPIRE_TIME, TimeUnit.SECONDS);
             return value;
         }
-        memory.put(key, new ArrayList<>());
         memory.get(key).add(value);
-        scheduler.schedule(() -> memory.remove(key), EXPIRE_TIME, TimeUnit.SECONDS);
-        // 사용자가 요청을 보내면 그 시간을 기점으로 다시 추가하는것은 안될까?
         return value;
+
+        // 사용자가 요청을 보내면 그 시간을 기점으로 다시 추가하는것은 안될까?
     }
 
     @Override
     public OrderItems update(String key, OrderItems value) {
-        
+
         List<OrderItems> cart = memory.get(key);
         Long valueSeq = value.getSeq();
         int index = getIndexFromCart(valueSeq, cart);
@@ -62,7 +65,7 @@ public class MemoryCartService implements MemoryService<OrderItems> {
     private static int getIndexFromCart(Long valueSeq, List<OrderItems> cart) {
 
         return IntStream.range(0, cart.size())
-                .filter(i -> cart.get(i).getSeq().equals(valueSeq) )
+                .filter(i -> cart.get(i).getSeq().equals(valueSeq))
                 .findFirst()
                 .orElseThrow(() -> new NoDataException(NOT_FOUND_IN_THE_CART));
     }
