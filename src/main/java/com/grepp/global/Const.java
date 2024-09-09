@@ -1,7 +1,5 @@
 package com.grepp.global;
 
-import java.time.LocalTime;
-
 public final class Const {
 
     public static final String NOT_FOUND_PRODUCTS = "물건이 존재하지 않습니다!";
